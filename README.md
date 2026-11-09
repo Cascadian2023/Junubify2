@@ -24,6 +24,10 @@ Audio uploads go to a private 50 MB bucket under the authenticated artist's UUID
 
 Before launch, add an admin review workflow, rate limits/abuse controls, stronger content validation/scanning, backup/retention policies, and production auth email configuration. The browser file size/type checks are usability checks, not a security boundary.
 
+## Deploy to Vercel
+
+`vercel.json` configures the Vite build (`npm run build`, output `dist`) and SPA fallback. To publish, import `Prototype20204/Junubify2` in Vercel and deploy the `main` branch. In the Vercel project settings, add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` for the environments you intend to use, then redeploy. Add the deployed site URL to Supabase Auth's allowed redirect URLs. Without Supabase variables, the static preview can still build, but backend login and uploads remain unavailable.
+
 ## Payments: not activated
 
 This repository does not yet have a payment processor integration, and no payment or payout is made. Local providers have different merchant APIs, eligibility, webhook signatures, settlement/currency rules, and payout requirements; do not assume any provider is available for your business or country. To implement the real flow, choose the provider and merchant product you have access to and give the team its official API documentation and sandbox onboarding instructions. Keep credentials in server-side secrets, never in the browser. The `payment_events` and `royalty_ledger` tables are server-only foundations, not proof of received payments or payable earnings.
