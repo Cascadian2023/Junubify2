@@ -26,7 +26,11 @@ Before launch, add an admin review workflow, rate limits/abuse controls, stronge
 
 ## Deploy to Vercel
 
-`vercel.json` configures the Vite build (`npm run build`, output `dist`) and SPA fallback. To publish, import `Prototype20204/Junubify2` in Vercel and deploy the `main` branch. In the Vercel project settings, add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` for the environments you intend to use, then redeploy. Add the deployed site URL to Supabase Auth's allowed redirect URLs. Without Supabase variables, the static preview can still build, but backend login and uploads remain unavailable.
+`vercel.json` configures the Vite build (`npm run build`, output `dist`) and SPA fallback. Import `Prototype20204/Junubify2` in Vercel, use the repository root as Root Directory, and deploy the `main` branch. In Vercel project settings, add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` for the environments you intend to use, then redeploy. Add the deployed site URL to Supabase Auth's allowed redirect URLs.
+
+The GitHub repository homepage is `https://junubify.vercel.app`, while an older screenshot showed `https://junubifysounds.vercel.app`. Verify which Vercel project owns the URL you are opening. In Vercel, inspect the latest deployment's source repository, branch, and commit, then assign the desired domain to that project under **Settings → Domains**. A push to GitHub only updates a Vercel project if that project is connected to this repository and branch.
+
+If the app error screen appears, it displays the browser-side exception message to help diagnose the actual failure. Confirm the deployment is from the latest `main` commit and open the deployment's own URL, not an older deployment alias.
 
 ## Payments: not activated
 
