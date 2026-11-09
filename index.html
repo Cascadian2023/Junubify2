@@ -2,9 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#07110f" />
     <meta name="description" content="Discover South Sudanese music on Junubify." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Junubify" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/icons/junubify.svg" />
+    <link rel="apple-touch-icon" href="/icons/junubify.svg" />
     <title>Junubify — South Sudan Beats</title>
     <style>
       html, body { margin: 0; min-height: 100%; background: #07110f; }
@@ -18,8 +25,11 @@
     <script>
       window.__junubifyStartupTimer = window.setTimeout(() => {
         const status = document.getElementById('startup-status');
-        if (status) status.innerHTML = '<div><strong>Junubify did not start</strong><p>The app script failed to load. Check the latest Vercel deployment build output and confirm the project root is the repository root.</p><button onclick="location.reload()" style="padding:12px 18px;border:0;border-radius:10px;background:#5dde9f;color:#062218;font-weight:700">Reload</button></div>';
+        if (status) status.innerHTML = '<div><strong>Junubify did not start</strong><p>The app script failed to load. Check the latest Vercel deployment build output and confirm the project root is correct.</p></div>';
       }, 8000);
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('/service-worker.js').catch((error) => console.warn('Offline support could not be enabled:', error)));
+      }
     </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -1,0 +1,21 @@
+{
+  "id": "/",
+  "name": "Junubify — South Sudan Beats",
+  "short_name": "Junubify",
+  "description": "Discover South Sudanese music on Junubify.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07110f",
+  "theme_color": "#07110f",
+  "categories": ["music", "entertainment"],
+  "icons": [
+    {
+      "src": "/icons/junubify.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
