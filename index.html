@@ -6,9 +6,21 @@
     <meta name="theme-color" content="#07110f" />
     <meta name="description" content="Discover South Sudanese music on Junubify." />
     <title>Junubify — South Sudan Beats</title>
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #07110f; }
+      #startup-status { box-sizing: border-box; min-height: 100vh; display: grid; place-content: center; padding: 28px; color: #eef6f2; font: 16px system-ui, sans-serif; text-align: center; }
+      #startup-status p { color: #9db0a6; }
+    </style>
   </head>
   <body>
+    <div id="startup-status"><div><strong>Loading Junubify…</strong><p>Please wait while the music app starts.</p></div></div>
     <div id="root"></div>
+    <script>
+      window.__junubifyStartupTimer = window.setTimeout(() => {
+        const status = document.getElementById('startup-status');
+        if (status) status.innerHTML = '<div><strong>Junubify did not start</strong><p>The app script failed to load. Check the latest Vercel deployment build output and confirm the project root is the repository root.</p><button onclick="location.reload()" style="padding:12px 18px;border:0;border-radius:10px;background:#5dde9f;color:#062218;font-weight:700">Reload</button></div>';
+      }, 8000);
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
