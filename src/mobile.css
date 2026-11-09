@@ -1,16 +1,17 @@
-/* Mobile header overrides: keep search and every navigation option visible. */
+/* Mobile layout: keep the brand, search, and every navigation tab visible. */
 @media (max-width: 760px) {
   .topbar {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 10px 16px;
     height: auto;
     min-height: 0;
-    padding: 12px 16px;
+    padding: 18px 30px 12px;
     align-items: center;
   }
 
   .topbar .brand {
+    grid-column: 1;
     grid-row: 1;
     width: max-content;
     max-width: 100%;
@@ -18,13 +19,15 @@
   }
 
   .topbar .search {
-    grid-row: 2;
+    grid-column: 2;
+    grid-row: 1;
     width: 100%;
     min-width: 0;
   }
 
   .topbar .nav-tabs {
-    grid-row: 3;
+    grid-column: 1 / -1;
+    grid-row: 2;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
@@ -36,27 +39,42 @@
 
   .topbar .nav-tabs button {
     min-width: 0;
-    min-height: 42px;
+    min-height: 44px;
     padding: 8px 4px;
     justify-content: center;
     gap: 5px;
     white-space: normal;
     text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.2;
   }
 
-  .topbar .nav-tabs button svg {
-    flex: 0 0 auto;
+  .topbar .nav-tabs button svg { flex: 0 0 auto; }
+  .content { padding-bottom: 120px; }
+  .hero { min-height: 0; }
+  .hero-play { margin-top: 16px; }
+  .track-row { grid-template-columns: 34px 72px minmax(0, 1fr) auto; gap: 12px; }
+  .track-stats > span { display: none; }
+  .player { padding-bottom: max(14px, env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px 18px 10px;
   }
+  .topbar .brand { grid-column: 1; grid-row: 1; }
+  .topbar .search { grid-column: 1; grid-row: 2; }
+  .topbar .nav-tabs { grid-column: 1; grid-row: 3; }
+  .topbar .nav-tabs button { font-size: 11px; }
 }
 
 @media (max-width: 370px) {
-  .topbar .nav-tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .topbar .nav-tabs button:last-child {
-    grid-column: 1 / -1;
-  }
+  .topbar .nav-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar .nav-tabs button:last-child { grid-column: 1 / -1; }
+  .track-row { grid-template-columns: 26px 56px minmax(0, 1fr) 38px; gap: 8px; }
+  .track-art, .track-art img { width: 56px; height: 56px; }
+  .track-meta strong { font-size: 13px; }
+  .track-meta span { font-size: 11px; }
 }

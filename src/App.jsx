@@ -5,6 +5,11 @@ import { createTrackAudioUrl, fetchArtistTracks, fetchPublishedTracks, submitTra
 
 const paymentSetupMessage = 'Checkout and payouts are not connected yet. Configure a payment provider and secure backend before accepting money or promising transfers.';
 const emptyForm = { title: '', artist: '', genre: 'Afrobeat', album: '', cover: '' };
+const demoTracks = [
+  { id: 'demo-1', title: 'Juba City Lights', artist: 'Emmanuel Jal & Dynamq', genre: 'Afrobeat', plays: 124500, cover: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=500', audioUrl: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3', demo: true },
+  { id: 'demo-2', title: 'White Nile Groove', artist: 'Riya Denis', genre: 'Dancehall', plays: 98200, cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=500', audioUrl: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=tropical-house-110034.mp3', demo: true },
+  { id: 'demo-3', title: 'Peace in South Sudan', artist: 'Silver X feat. MacJ', genre: 'Hip-Hop', plays: 215800, cover: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=500', audioUrl: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=hip-hop-rock-beats-118000.mp3', demo: true },
+];
 
 export default function App() {
   const [tab, setTab] = useState('discover');
@@ -74,10 +79,7 @@ export default function App() {
   const requestSignIn = async (event) => {
     event.preventDefault();
     if (!supabase) return notify('Add the Supabase project URL and anon key to enable artist sign-in.');
-    const { error } = await supabase.auth.signInWithOtp({
-      email: email.trim(),
-      options: { emailRedirectTo: window.location.origin },
-    });
+    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: window.location.origin } });
     if (error) notify(error.message);
     else notify('Check your email for a secure sign-in link.');
   };
@@ -116,7 +118,8 @@ export default function App() {
       return;
     }
     try {
-      const url = await createTrackAudioUrl(track.audioPath);
+      const url = track.audioPath ? await createTrackAudioUrl(track.audioPath) : track.audioUrl;
+      if (!url) return notify('Audio is not available for this track.');
       setAudioUrl(url);
       setPlaying(track);
       requestAnimationFrame(() => audioRef.current?.play().catch(() => notify('Audio playback failed. Try another track.')));
@@ -125,7 +128,9 @@ export default function App() {
     }
   };
 
-  const visibleTracks = tracks.filter((track) => `${track.title} ${track.artist} ${track.genre}`.toLowerCase().includes(query.toLowerCase()));
+  const catalogTracks = tracks.length ? tracks : demoTracks;
+  const showingDemoTracks = tracks.length === 0;
+  const visibleTracks = catalogTracks.filter((track) => `${track.title} ${track.artist} ${track.genre}`.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <div className="app-shell">
@@ -141,11 +146,15 @@ export default function App() {
 
       <main className="content">
         {tab === 'discover' && <>
-          <section className="hero"><div className="hero-copy"><span className="eyebrow"><AudioLines size={14}/> MUSIC FROM HOME</span><h1>South Sudan’s sound,<br/><em>all in one place.</em></h1><p>Discover music from artists across South Sudan and the diaspora.</p></div><div className="hero-badge"><BadgeCheck size={18}/> A home for local artists</div></section>
+          <section className="hero">
+            <div className="hero-copy"><span className="eyebrow"><AudioLines size={14}/> MUSIC FROM HOME</span><h1>South Sudan’s sound,<br/><em>all in one place.</em></h1><p>Discover emerging voices and hometown favorites from Juba and beyond.</p><button className="button primary hero-play" onClick={() => visibleTracks[0] && playTrack(visibleTracks[0])}><Play size={16} fill="currentColor"/> Play a track</button></div>
+            <div className="hero-badge"><BadgeCheck size={18}/> A home for local artists</div>
+          </section>
           <section className="section-heading"><div><span className="eyebrow">THE JUNUBIFY CATALOG</span><h2>Discover tracks</h2></div><span className="muted">{visibleTracks.length} tracks</span></section>
+          {showingDemoTracks && <p className="catalog-status">{supabaseConfigured ? 'Sample tracks · published releases will appear here' : 'Sample tracks · connect Supabase for the live catalog'}</p>}
           {loadingCatalog && <p className="muted catalog-status">Loading the published catalog…</p>}
           {catalogError && <div className="notice-box"><b>Catalog unavailable</b><p>{catalogError}</p><button className="button secondary" onClick={refreshCatalog}>Try again</button></div>}
-          <section className="track-list">{visibleTracks.map((track, index) => <article className="track-row" key={track.id}><span className="track-number">{String(index + 1).padStart(2, '0')}</span><button className="track-art" onClick={() => playTrack(track)} aria-label={`Play ${track.title}`}><img src={track.cover} alt=""/></button><div className="track-meta"><strong>{track.title}</strong><span>{track.artist} · {track.genre}</span></div><div className="track-stats"><span><Heart size={14}/> {track.plays.toLocaleString()}</span><button className="mini-play" onClick={() => playTrack(track)} aria-label={`Play ${track.title}`}>{playing?.id === track.id && audioRef.current && !audioRef.current.paused ? <Pause size={15}/> : <Play size={15}/>}</button></div></article>)}</section>
+          <section className="track-list">{visibleTracks.map((track, index) => <article className="track-row" key={track.id}><span className="track-number">{String(index + 1).padStart(2, '0')}</span><button className="track-art" onClick={() => playTrack(track)} aria-label={`Play ${track.title}`}><img src={track.cover} alt=""/></button><div className="track-meta"><strong>{track.title}</strong><span>{track.artist} · {track.genre}</span></div><div className="track-stats"><span><Heart size={14}/> {track.plays.toLocaleString()}</span><button className="mini-play" onClick={() => playTrack(track)} aria-label={playing?.id === track.id && audioRef.current && !audioRef.current.paused ? `Pause ${track.title}` : `Play ${track.title}`}>{playing?.id === track.id && audioRef.current && !audioRef.current.paused ? <Pause size={15}/> : <Play size={15}/>}</button></div></article>)}</section>
           {!loadingCatalog && !catalogError && visibleTracks.length === 0 && <div className="panel empty-catalog"><Music2 size={26}/><b>{query ? 'No tracks match your search.' : 'The public catalog is ready for its first release.'}</b><span>Approved artist submissions will appear here.</span></div>}
           <section className="upload-promo"><div><span className="eyebrow">ARE YOU AN ARTIST?</span><h2>Bring your sound to Junubify.</h2><p>Submit your music securely for review in Artist Studio.</p></div><button className="button primary" onClick={() => setTab('studio')}><Upload size={16}/> Open studio</button></section>
         </>}
@@ -184,7 +193,7 @@ export default function App() {
         </>}
       </main>
 
-      <footer className="player"><div className="player-track">{playing ? <><img src={playing.cover} alt=""/><div><b>{playing.title}</b><span>{playing.artist}</span></div></> : <><span className="player-icon"><Music2 size={19}/></span><div><b>Nothing playing</b><span>Pick a published track to listen</span></div></>}</div><button className="play-toggle" aria-label={playing ? 'Pause current track' : 'Play selected track'} onClick={() => playing && playTrack(playing)}>{playing ? <Pause size={20}/> : <Play size={20}/>}</button><audio ref={audioRef} src={audioUrl} onEnded={() => { setPlaying(null); setAudioUrl(''); }} onError={() => playing && notify('Could not load this audio. Try again later.')}/></footer>
+      <footer className="player"><div className="player-track">{playing ? <><img src={playing.cover} alt=""/><div><b>{playing.title}</b><span>{playing.artist}</span></div></> : <><span className="player-icon"><Music2 size={19}/></span><div><b>Nothing playing</b><span>Pick a track to listen</span></div></>}</div><button className="play-toggle" aria-label={playing ? 'Pause current track' : 'Play first track'} onClick={() => playing ? playTrack(playing) : visibleTracks[0] && playTrack(visibleTracks[0])}>{playing && audioRef.current && !audioRef.current.paused ? <Pause size={20}/> : <Play size={20}/>}</button><audio ref={audioRef} src={audioUrl} onEnded={() => { setPlaying(null); setAudioUrl(''); }} onError={() => playing && notify('Could not load this audio. Try again later.')}/></footer>
       {notice && <div className="toast" role="status">{notice}</div>}
     </div>
   );
