@@ -1,4 +1,4 @@
-/* Compact the Discover heading and remove the cramped side badge on phones. */
+/* Mobile layout: retain all primary destinations in a compact, scroll-safe header. */
 .hero + .section-heading h2 {
   font-size: clamp(28px, 3vw, 34px);
   line-height: 1.15;
@@ -6,45 +6,40 @@
 }
 
 @media (max-width: 760px) {
-  /* Keep every primary section reachable on narrow screens. */
   .topbar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px 12px;
+    gap: 7px 10px;
+    padding: 10px 14px;
   }
 
-  .brand {
-    flex: 0 0 auto;
-    min-width: 0;
-  }
-
-  .search {
-    flex: 1 1 180px;
-    width: auto;
-    min-width: 0;
-  }
+  .brand { flex: 0 1 auto; min-width: 0; }
+  .brand .brand-icon { width: 38px; height: 38px; }
+  .brand b { font-size: 13px; }
+  .brand small { font-size: 8px; }
+  .search { flex: 1 1 130px; width: auto; min-width: 0; padding: 10px 12px; font-size: 12px; }
 
   .nav-tabs {
     order: 3;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     flex: 1 0 100%;
     width: 100%;
     min-width: 0;
-    gap: 6px;
+    gap: 4px;
     overflow: visible;
   }
 
   .nav-tabs button {
+    display: flex;
     min-width: 0;
     justify-content: center;
     white-space: nowrap;
-    padding-inline: 6px;
-    font-size: clamp(10px, 2.8vw, 13px);
+    padding: 7px 2px;
+    font-size: clamp(9px, 2.7vw, 12px);
   }
 
-  /* Make catalog artwork compact instead of allowing images to dominate rows. */
   .track-row {
     grid-template-columns: 24px 84px minmax(0, 1fr) auto;
     align-items: center;
@@ -53,92 +48,32 @@
     padding: 12px;
   }
 
-  .track-art {
-    width: 84px;
-    height: 84px;
-    min-width: 0;
-    flex: 0 0 84px;
-    overflow: hidden;
-  }
-
-  .track-art img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .track-meta {
-    min-width: 0;
-  }
-
-  .track-meta strong,
-  .track-meta span {
-    overflow-wrap: anywhere;
-  }
-
-  .track-stats {
-    min-width: 0;
-  }
-
-  /* The badge was competing with the headline and creating the circled empty area. */
-  .hero-badge {
-    display: none !important;
-  }
-
-  .hero-copy {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .hero h1 {
-    max-width: 15ch;
-    font-size: clamp(30px, 7.6vw, 36px);
-    line-height: 1.1;
-  }
-
-  .hero + .section-heading h2 {
-    font-size: clamp(26px, 6.8vw, 30px);
-    line-height: 1.15;
-  }
+  .track-art { width: 84px; height: 84px; min-width: 0; flex: 0 0 84px; overflow: hidden; }
+  .track-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .track-meta { min-width: 0; }
+  .track-meta strong, .track-meta span { overflow-wrap: anywhere; }
+  .track-stats { min-width: 0; }
+  .hero-badge { display: none !important; }
+  .hero-copy { width: 100%; max-width: 100%; }
+  .hero h1 { max-width: 15ch; font-size: clamp(30px, 7.6vw, 36px); line-height: 1.1; }
+  .hero + .section-heading h2 { font-size: clamp(26px, 6.8vw, 30px); line-height: 1.15; }
+  .player { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
 }
 
 @media (max-width: 520px) {
-  .topbar {
-    gap: 10px;
-  }
+  .topbar { gap: 6px 8px; padding: 8px 11px; }
+  .brand .brand-icon { width: 34px; height: 34px; }
+  .brand b { font-size: 12px; }
+  .brand small { display: none; }
+  .search { flex-basis: 110px; padding: 9px 10px; font-size: 11px; }
+  .nav-tabs button { flex-direction: column; gap: 3px; min-height: 46px; padding: 5px 1px; font-size: 9px; }
+  .track-row { grid-template-columns: 18px 64px minmax(0, 1fr) auto; gap: 8px; min-height: 84px; padding: 8px; }
+  .track-art { width: 64px; height: 64px; flex-basis: 64px; }
+  .track-stats span { font-size: 11px; }
+  .hero h1 { max-width: 16ch; font-size: clamp(29px, 7.4vw, 33px); }
+  .hero + .section-heading h2 { font-size: 27px; }
+}
 
-  .nav-tabs button {
-    flex-direction: column;
-    gap: 4px;
-    min-height: 54px;
-    padding: 8px 3px;
-    font-size: 11px;
-  }
-
-  .track-row {
-    grid-template-columns: 18px 64px minmax(0, 1fr) auto;
-    gap: 8px;
-    min-height: 84px;
-    padding: 8px;
-  }
-
-  .track-art {
-    width: 64px;
-    height: 64px;
-    flex-basis: 64px;
-  }
-
-  .track-stats span {
-    font-size: 11px;
-  }
-
-  .hero h1 {
-    max-width: 16ch;
-    font-size: clamp(29px, 7.4vw, 33px);
-  }
-
-  .hero + .section-heading h2 {
-    font-size: 27px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }

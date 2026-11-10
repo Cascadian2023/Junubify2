@@ -18,15 +18,64 @@
 .section-heading h2 { display: flex; align-items: center; gap: 10px; }
 .section-heading h2 svg { color: #59de9f; flex: 0 0 auto; }
 .clear-filter { color: #59de9f; background: none; border: 0; cursor: pointer; }
-.track-action { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 0; border-radius: 50%; color: #91a39c; background: transparent; cursor: pointer; }
-.track-action:hover, .track-action.liked { color: #42d9a0; }
-.track-stats { gap: 8px; }
-.trend-hero, .genre-card, .app-download { box-shadow: 0 18px 50px rgba(0,0,0,.16); }
-.trend-hero { position: relative; overflow: hidden; }
-.trend-hero::after { content: ''; position: absolute; inset: auto -8% -80% 45%; height: 100%; background: radial-gradient(ellipse,rgba(49,214,155,.16),transparent 68%); pointer-events: none; }
-.genre-card { position: relative; overflow: hidden; }
-.genre-card::after { content: ''; position: absolute; width: 120px; height: 120px; right: -40px; top: -50px; border-radius: 50%; background: rgba(255,255,255,.08); }
-.app-download { border: 1px solid rgba(121,230,190,.16); }
+.app-download { max-width: 760px; margin: 20px auto 40px; padding: clamp(24px, 6vw, 56px); text-align: center; background: linear-gradient(145deg,#111a2e,#08251f); }
+.download-icon { display: grid; place-items: center; width: 96px; height: 96px; margin: 0 auto 24px; border-radius: 24px; color: #07110f; background: #10b981; }
+.app-download h1 { margin: 14px auto; font-size: clamp(30px, 6vw, 48px); }
+.app-download > p { max-width: 560px; margin: 12px auto 24px; color: #b7c5c1; line-height: 1.65; }
+.store-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin: 28px 0; }
+.store-placeholder { display: flex; align-items: center; gap: 14px; min-width: 210px; padding: 16px 20px; border: 1px solid #354354; border-radius: 18px; color: #59debd; background: #060c19; text-align: left; }
+.store-placeholder span { display: grid; gap: 4px; color: #eef6f2; }
+.store-placeholder small { color: #9daaba; font-size: 10px; }
+.qr-placeholder { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; width: 168px; height: 168px; margin: 34px auto 14px; padding: 12px; border: 8px solid white; border-radius: 20px; background: #07110f; }
+.qr-placeholder i { background: #202b3d; }
+.qr-placeholder i.qr-lit { background: #35d39c; }
+
+/* Featured artist strip, hot badge, and gentle motion. */
+.genre-section { position: relative; }
+.genre-section::before {
+  content: 'FEATURED ARTIST  ·  EMMANUEL JAL\A Voices and stories from South Sudan';
+  display: flex;
+  align-items: center;
+  min-height: 88px;
+  margin-bottom: 22px;
+  padding: 18px 22px 18px 104px;
+  border: 1px solid rgba(103, 226, 180, .2);
+  border-radius: 20px;
+  color: #f3f8f6;
+  white-space: pre-line;
+  line-height: 1.55;
+  font-weight: 700;
+  background-image: linear-gradient(90deg, rgba(5, 22, 21, .3), #0c201d 30%, #101a2b 100%), url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=240&h=240&q=80');
+  background-size: 100% 100%, 76px 76px;
+  background-position: center, 16px center;
+  background-repeat: no-repeat;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+}
+.trending-section .section-heading { position: relative; padding-top: 30px; }
+.trending-section .section-heading::before {
+  content: '✦  HOT RIGHT NOW';
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 190, 96, .3);
+  border-radius: 999px;
+  color: #ffe2aa;
+  background: linear-gradient(110deg, rgba(242, 120, 35, .28), rgba(224, 52, 89, .22));
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.eyebrow { background-image: linear-gradient(90deg, #70e7ba, #9bb9ff); background-clip: text; -webkit-background-clip: text; }
+.genre-card, .track-row, .button, .track-action { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.genre-card:hover, .track-row:hover { transform: translateY(-2px); }
+.player {
+  border-top: 1px solid rgba(135, 220, 193, .18);
+  background: rgba(7, 15, 20, .84);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
+  box-shadow: 0 -12px 38px rgba(0, 0, 0, .22);
+}
 .store-placeholder { cursor: default; }
 .store-placeholder:hover { border-color: rgba(89,222,189,.55); transform: translateY(-2px); }
 @media (max-width: 760px) {
@@ -43,5 +92,9 @@
   .genre-grid { grid-template-columns: 1fr 1fr; }
   .genre-card { min-height: 104px; padding: 13px; }
   .store-placeholder { min-width: 100%; justify-content: center; }
+  .genre-section::before { min-height: 78px; padding-left: 88px; background-size: 100% 100%, 62px 62px; background-position: center, 12px center; font-size: 13px; }
   .track-action { width: 30px; height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
