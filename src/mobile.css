@@ -44,6 +44,43 @@
     font-size: clamp(10px, 2.8vw, 13px);
   }
 
+  /* Make catalog artwork compact instead of allowing images to dominate rows. */
+  .track-row {
+    grid-template-columns: 24px 84px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    min-height: 108px;
+    padding: 12px;
+  }
+
+  .track-art {
+    width: 84px;
+    height: 84px;
+    min-width: 0;
+    flex: 0 0 84px;
+    overflow: hidden;
+  }
+
+  .track-art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .track-meta {
+    min-width: 0;
+  }
+
+  .track-meta strong,
+  .track-meta span {
+    overflow-wrap: anywhere;
+  }
+
+  .track-stats {
+    min-width: 0;
+  }
+
   /* The badge was competing with the headline and creating the circled empty area. */
   .hero-badge {
     display: none !important;
@@ -76,6 +113,23 @@
     gap: 4px;
     min-height: 54px;
     padding: 8px 3px;
+    font-size: 11px;
+  }
+
+  .track-row {
+    grid-template-columns: 18px 64px minmax(0, 1fr) auto;
+    gap: 8px;
+    min-height: 84px;
+    padding: 8px;
+  }
+
+  .track-art {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .track-stats span {
     font-size: 11px;
   }
 
