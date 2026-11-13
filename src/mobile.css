@@ -1,0 +1,11 @@
+/* The screenshot-inspired player and header are styled in styles.css. This file
+   keeps safe-area spacing and native phone behavior without changing layout. */
+@media(max-width:760px){
+  html{min-height:100%;overscroll-behavior-x:none}
+  body{min-height:100vh;min-height:100dvh;padding-bottom:env(safe-area-inset-bottom);overscroll-behavior-x:none}
+  .app-shell{min-height:100vh;min-height:100dvh}
+  .topbar{-webkit-backdrop-filter:blur(18px) saturate(140%)}
+  .player{bottom:0;padding-bottom:max(16px,env(safe-area-inset-bottom));-webkit-backdrop-filter:blur(18px) saturate(145%)}
+  .content{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.player{animation:none}}
