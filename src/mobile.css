@@ -7,5 +7,19 @@
   .topbar{-webkit-backdrop-filter:blur(18px) saturate(140%)}
   .player{bottom:0;padding-bottom:max(16px,env(safe-area-inset-bottom));-webkit-backdrop-filter:blur(18px) saturate(145%)}
   .content{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+
+  /* Match the full-width, docked player and generous plan cards in the phone refs. */
+  .player{min-height:138px;padding-top:24px;padding-bottom:max(24px,env(safe-area-inset-bottom));}
+  .content{padding-bottom:calc(168px + env(safe-area-inset-bottom))}
+  .plan-card{min-height:448px;display:flex;flex-direction:column}
+  .plan-card ul{margin-top:auto}
+  .monetization-page{gap:30px}
+  .nav-tabs button{-webkit-tap-highlight-color:transparent}
+  .track-row{-webkit-tap-highlight-color:transparent}
+}
+@media(max-width:420px){
+  .player{min-height:124px;padding-top:20px;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+  .content{padding-bottom:calc(148px + env(safe-area-inset-bottom))}
+  .plan-card{min-height:410px}
 }
 @media(prefers-reduced-motion:reduce){.player{animation:none}}
