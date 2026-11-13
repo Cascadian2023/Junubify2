@@ -68,26 +68,11 @@ button, input, select {
 }
 
 .search-wrap {
-  flex: 1;
-  min-width: 0;
+  display: none;
 }
 
 .search {
-  width: 100%;
-  height: 50px;
-  border-radius: 999px;
-  border: 1px solid rgba(157, 190, 175, 0.14);
-  background: rgba(17, 36, 29, 0.78);
-  color: #edf5f2;
-  padding: 0 18px;
-  font-size: 18px;
-  line-height: 1;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-}
-
-.search::placeholder {
-  color: rgba(224, 233, 228, 0.7);
+  display: none;
 }
 
 .nav-tabs {
@@ -397,8 +382,7 @@ button, input, select {
   }
 
   .search {
-    height: 46px;
-    font-size: 15px;
+    display: none;
   }
 
   .nav-tabs button {
