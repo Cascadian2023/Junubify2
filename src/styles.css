@@ -89,3 +89,273 @@
     animation: none;
   }
 }
+
+/* Mobile overflow fixes for the Junubify playlist view */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: #020b11;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+.app-shell {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.content,
+.hero,
+.featured-artist,
+.genre-section,
+.featured-playlists,
+.trending-section,
+.upload-promo,
+.app-download,
+.panel,
+.section-heading {
+  min-width: 0;
+}
+
+.track-row,
+.track-meta,
+.track-stats,
+.track-controls,
+.topbar,
+.nav-tabs,
+.hero-copy,
+.genre-grid,
+.playlist-list,
+.search,
+.brand {
+  min-width: 0;
+}
+
+.track-row {
+  display: grid;
+  grid-template-columns: 18px 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 88px;
+}
+
+.track-row > * {
+  min-width: 0;
+}
+
+.track-art {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.track-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.track-meta {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.track-meta strong,
+.track-meta span,
+.track-title,
+.genre-pill,
+.playlist-card,
+.hero-copy h1,
+.section-heading h1,
+.section-heading h2,
+.featured-artist h2,
+.upload-promo h2,
+.app-download h1 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.track-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.track-controls button,
+.track-controls .icon-button,
+.hero-copy button,
+.section-heading button,
+.upload-promo button,
+.app-download button,
+.nav-tabs button {
+  flex-shrink: 0;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.search {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.nav-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  gap: 8px;
+}
+
+.nav-tabs button {
+  width: 100%;
+  justify-content: center;
+}
+
+.hero-copy {
+  max-width: 100%;
+}
+
+.hero h1,
+.section-heading h1,
+.section-heading h2,
+.featured-artist h2 {
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  max-width: 100%;
+}
+
+.hero-copy p,
+.section-heading .muted,
+.featured-artist p,
+.upload-promo p,
+.app-download p,
+.featured-playlists .playlist-card p,
+.genre-grid button {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 0 0 24px;
+  }
+
+  .topbar {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .brand {
+    max-width: 160px;
+  }
+
+  .nav-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .nav-tabs button {
+    min-width: 0;
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .hero-copy {
+    width: 100%;
+  }
+
+  .hero h1,
+  .section-heading h1,
+  .section-heading h2,
+  .featured-artist h2 {
+    font-size: clamp(30px, 7vw, 54px);
+    line-height: 0.97;
+  }
+
+  .track-row {
+    grid-template-columns: 14px 68px minmax(0, 1fr) auto;
+    gap: 10px;
+    min-height: 84px;
+  }
+
+  .track-art {
+    width: 68px;
+    height: 68px;
+  }
+
+  .track-meta strong,
+  .track-meta span {
+    display: block;
+    line-height: 1.2;
+  }
+
+  .track-stats,
+  .track-stats span {
+    font-size: 11px;
+  }
+
+  .track-controls button,
+  .track-controls .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 8px 10px;
+  }
+
+  .brand {
+    max-width: 140px;
+  }
+
+  .search {
+    flex-basis: auto;
+  }
+
+  .nav-tabs button {
+    font-size: 11px;
+    padding: 8px 4px;
+  }
+
+  .track-row {
+    grid-template-columns: 14px 60px minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .track-art {
+    width: 60px;
+    height: 60px;
+  }
+
+  .hero h1,
+  .section-heading h1,
+  .section-heading h2,
+  .featured-artist h2 {
+    font-size: clamp(26px, 9vw, 42px);
+  }
+}
