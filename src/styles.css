@@ -1,6 +1,9 @@
-/* Correct ticker/badge placement: keep them as separate, readable rows. */
+/* Single ticker row, with badge and section heading kept visually separate. */
 .trending-section .now-trending-ticker {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin: 0 0 14px;
   padding: 10px 14px;
@@ -13,18 +16,76 @@
   font-weight: 700;
   letter-spacing: .08em;
 }
-.now-trending-ticker span { display: block; width: max-content; white-space: nowrap; animation: ticker-scroll 28s linear infinite; }
-.trending-section .section-heading { position: relative; margin-top: 0; padding-top: 34px; }
-.trending-section .section-heading::before { top: 0; left: 0; }
-.trending-section::before { content: none !important; display: none !important; }
-.hot-badge { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 14px; padding: 6px 11px; border: 1px solid rgba(255,190,96,.32); border-radius: 999px; color: #ffe2aa; background: linear-gradient(110deg,rgba(242,120,35,.22),rgba(224,52,89,.2)); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
-.hot-badge span { color: #ffc866; }
-@keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.now-trending-ticker:hover span { animation-play-state: paused; }
-.playlist-art { background-color: #121b22; }
-@media (max-width: 600px) {
-  .trending-section .section-heading { padding-top: 32px; }
-  .trending-section .section-heading .muted { max-width: 42%; text-align: right; }
-  .now-trending-ticker { font-size: 9px; }
+
+.now-trending-ticker span {
+  display: block;
+  width: max-content;
+  white-space: nowrap;
+  animation: ticker-scroll 28s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) { .now-trending-ticker span { animation: none; } }
+
+.trending-section .section-heading {
+  position: relative;
+  margin-top: 0;
+  padding-top: 34px;
+}
+
+.trending-section .section-heading::before {
+  top: 0;
+  left: 0;
+}
+
+.trending-section::before {
+  content: none !important;
+  display: none !important;
+}
+
+.hot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 14px;
+  padding: 6px 11px;
+  border: 1px solid rgba(255,190,96,.32);
+  border-radius: 999px;
+  color: #ffe2aa;
+  background: linear-gradient(90deg, rgba(119, 72, 9, .24), rgba(50, 45, 30, .2));
+}
+
+.hot-badge span {
+  color: #ffc866;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.now-trending-ticker:hover span {
+  animation-play-state: paused;
+}
+
+.playlist-art {
+  background-color: #121b22;
+}
+
+@media (max-width: 600px) {
+  .trending-section .section-heading {
+    padding-top: 32px;
+  }
+
+  .trending-section .section-heading .muted {
+    max-width: 42%;
+    text-align: right;
+  }
+
+  .now-trending-ticker {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .now-trending-ticker span {
+    animation: none;
+  }
+}
